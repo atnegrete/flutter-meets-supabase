@@ -1,6 +1,15 @@
 
 ## About
-This is a Flutter project integrated with Supabase.
+This is a Flutter project integrated with Supabase. This project is a sandbox for playground for Flutter & Supabase integration.
+- 
+
+## Todo
+- [x] Configure Supabase client 
+- [x] Configure authentication, email signup & login
+- [ ] Reset Password
+- [ ] Magic Link Signup, to redirect to the app as authenticated after confirming e-mail.
+- [ ] Realtime integrations
+- [ ] "Todo" sample application -> PR into supabase examples?
 
 ### Getting Started
 - `git clone https://github.com/atnegrete/coolapp.git`
@@ -24,3 +33,5 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
