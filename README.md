@@ -10,6 +10,7 @@ This is a Flutter project integrated with Supabase. This project is a sandbox fo
 - [ ] Magic Link Signup, to redirect to the app as authenticated after confirming e-mail.
 - [ ] Realtime integrations
 - [ ] "Todo" sample application -> PR into supabase examples?
+- [ ] Create shared authentication components -> PR into supabase-dart-ui ?
 
 ### Getting Started
 - `git clone https://github.com/atnegrete/coolapp.git`
