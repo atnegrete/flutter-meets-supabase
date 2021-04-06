@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:injector/injector.dart';
 import 'package:supabase/supabase.dart';
 
-import 'pages/home_page.dart';
-
 void main() {
   const supabaseUrl = 'https://ecjlrraxlnjqqavwhvgz.supabase.co';
   const supabaseKey =

@@ -1,8 +1,18 @@
-# coolapp
 
-A new Flutter project.
+## About
+This is a Flutter project integrated with Supabase.
 
-## Getting Started
+### Getting Started
+- `git clone https://github.com/atnegrete/coolapp.git`
+- Configure your Supabase client variables
+  - Create a project at [supabase.io](https://app.supabase.io/)
+  - Go to Project > Settings > API
+    - Copy the `URL` and `Public API Key` 
+    - Replace values accordingly in `lib/main.dart` inside `main()`
+- Start your emulator & `flutter run`
+
+
+### Flutter - Getting Started
 
 This project is a starting point for a Flutter application.
 
