@@ -1,6 +1,6 @@
 
 ## About
-This is a Flutter project integrated with Supabase. This project is a sandbox for playground for Flutter & Supabase integration.
+This is a Flutter project integrated with Supabase, the Firebase open source alternative. This project is a sandbox for playground for Flutter & Supabase integration.
 
 ## Todo
 - [x] Configure Supabase client 
