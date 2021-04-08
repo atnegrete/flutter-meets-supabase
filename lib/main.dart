@@ -4,9 +4,9 @@ import 'package:injector/injector.dart';
 import 'package:supabase/supabase.dart';
 
 void main() {
-  const supabaseUrl = 'https://ecjlrraxlnjqqavwhvgz.supabase.co';
+  const supabaseUrl = 'https://rcpcxnwwpxtfexykdvnl.supabase.co';
   const supabaseKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzUxMjU5NCwiZXhwIjoxOTMzMDg4NTk0fQ.FnnZZEc7P_ylQcaawfp1RedkiHMKeG2-6e76PeSAtx4';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzgwNjMwNywiZXhwIjoxOTMzMzgyMzA3fQ.cMEwSwpKYmut_U4s9d9VpRnB5Oi99MhLeskgfr5w8eg';
   final supabaseClient = SupabaseClient(supabaseUrl, supabaseKey);
 
   Injector.appInstance.registerSingleton<SupabaseClient>(() => supabaseClient);
