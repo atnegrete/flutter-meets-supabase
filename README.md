@@ -38,3 +38,8 @@ samples, guidance on mobile development, and a full API reference.
 Big shoutout to all the supabase contributors! This is only possible thanks to them :D 
 
 
+### Flutter version
+Flutter 2.0.4 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision b1395592de (8 days ago) • 2021-04-01 14:25:01 -0700
+Engine • revision 2dce47073a
+Tools • Dart 2.12.2
