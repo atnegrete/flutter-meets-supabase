@@ -32,21 +32,26 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = Injector.appInstance.get<SupabaseClient>().auth.user();
+
     final todoWidgets = todos
         .map((todo) => ListTile(
               leading: Checkbox(
                   value: todo.isComplete,
-                  onChanged: (isComplete) async {
-                    await updateTodo(todo, isComplete);
-                  }),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () => deleteTodo(todo.id),
-              ),
+                  onChanged: todo.userId == currentUser.id
+                      ? (isComplete) async {
+                          await updateTodo(todo, isComplete);
+                        }
+                      : null),
+              trailing: todo.userId == currentUser.id
+                  ? IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => deleteTodo(todo.id),
+                    )
+                  : null,
               title: Text(todo.task),
             ))
         .toList();
-    final currentUser = Injector.appInstance.get<SupabaseClient>().auth.user();
     return Scaffold(
         appBar: AppBar(
           title: Text(currentUser.email),
@@ -66,35 +71,26 @@ class _HomePageState extends State<HomePage> {
                 child: Text('Sign Out'))
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 500,
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        controller: newTaskName,
-                        onEditingComplete: addTask,
-                        decoration: InputDecoration(
-                            helperText: 'Enter task',
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: addTask,
-                            )),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    ...todoWidgets
-                  ],
-                ),
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: newTaskName,
+                onEditingComplete: addTask,
+                decoration: InputDecoration(
+                    helperText: 'Enter task',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: addTask,
+                    )),
               ),
-            ],
-          ),
+            ),
+            Divider(
+              thickness: 1,
+            ),
+            ...todoWidgets
+          ],
         ));
   }
 
@@ -136,27 +132,39 @@ class _HomePageState extends State<HomePage> {
         .get<SupabaseClient>()
         .from('todos')
         .on(SupabaseEventTypes.delete, (payload) {
-      final deleteId = payload.oldRecord['id'];
-      setState(() {
-        todos = todos.where((t) => t.id != deleteId).toList();
-      });
+      handleDelete(payload);
     }).on(SupabaseEventTypes.update, (payload) {
-      final updatedTodo = Todo.fromJson(payload.newRecord);
-      final todo =
-          todos.firstWhere((t) => t.id == updatedTodo.id, orElse: () => null);
+      handleUpdate(payload);
+    }).on(SupabaseEventTypes.insert, (payload) {
+      handleInsert(payload);
+    }).subscribe();
+  }
+
+  void handleInsert(payload) {
+    final todo = Todo.fromJson(payload.newRecord);
+    setState(() {
+      todos = [todo, ...todos];
+    });
+  }
+
+  void handleDelete(payload) {
+    final deleteId = payload.oldRecord['id'];
+    setState(() {
+      todos = todos.where((t) => t.id != deleteId).toList();
+    });
+  }
+
+  void handleUpdate(payload) {
+    final updatedTodo = Todo.fromJson(payload.newRecord);
+    final todo =
+        todos.firstWhere((t) => t.id == updatedTodo.id, orElse: () => null);
+    setState(() {
       if (todo == null) {
-        setState(() {
-          todos = [todo, ...todos];
-        });
+        todos = [todo, ...todos];
       } else {
         todo.isComplete = updatedTodo.isComplete;
       }
-    }).on(SupabaseEventTypes.insert, (payload) {
-      final todo = Todo.fromJson(payload.newRecord);
-      setState(() {
-        todos = [todo, ...todos];
-      });
-    }).subscribe();
+    });
   }
 
   Future addTask() async {
