@@ -7,8 +7,8 @@ This is a Flutter project integrated with Supabase, the Firebase open source alt
 - [x] Configure authentication, email signup & login
 - [ ] Reset Password
 - [ ] Magic Link Signup, to redirect to the app as authenticated after confirming e-mail.
-- [ ] Realtime integrations
-- [ ] "Todo" sample application -> PR into supabase examples?
+- [x] Realtime integrations
+- [x] "Todo" sample application -> PR into supabase examples?
 - [ ] Create shared authentication components -> PR into supabase-dart-ui ?
 
 ### Getting Started
