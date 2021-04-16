@@ -3,7 +3,9 @@ import 'package:coolapp/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
+import 'package:coolapp/pages/splash_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,6 +64,10 @@ class _LoginPageState extends State<LoginPage> {
         .auth
         .signIn(email: _email.text, password: _password.text);
     if (signInResult != null && signInResult.user != null) {
+      final sharedPreferences = await SharedPreferences.getInstance();
+
+      await sharedPreferences.setString(
+          persistentSessionKey, signInResult.data.persistSessionString);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
     } else if (signInResult.error.message != null) {
